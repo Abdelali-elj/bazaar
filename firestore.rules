@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helpers ──────────────────────────────────────────
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // ── Produits & Catégories : lecture publique ──────────
+    match /products/{doc} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+    match /categories/{doc} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // ── Offres : lecture publique, écriture authentifiée ──
+    match /offers/{doc} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // ── Codes Promo : lecture publique, écriture authentifiée ──
+    match /promo_codes/{doc} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // ── Messages Support : utilisateurs connectés ─────────
+    match /messages/{doc} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // ── Commandes : utilisateurs connectés ───────────────
+    match /orders/{doc} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // ── Profils utilisateurs ──────────────────────────────
+    match /users/{userId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    // ── Commentaires clients ─────────────────────────────
+    match /comments/{doc} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if isAuthenticated();
+    }
+  }
+}
