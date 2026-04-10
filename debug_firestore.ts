@@ -17,7 +17,8 @@ async function test() {
         fs.writeFileSync('firestore_debug.json', JSON.stringify(result, null, 2));
         console.log("Debug info written to firestore_debug.json");
     } catch (err) {
-        fs.writeFileSync('firestore_debug.json', JSON.stringify({ error: err.message, stack: err.stack }, null, 2));
+        const e = err instanceof Error ? err : new Error(String(err));
+        fs.writeFileSync('firestore_debug.json', JSON.stringify({ error: e.message, stack: e.stack }, null, 2));
         console.log("Error written to firestore_debug.json");
     }
 }
