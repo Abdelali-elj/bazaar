@@ -39,7 +39,7 @@ export default function ProductsPage() {
           "https://images.unsplash.com/photo-1625091302231-7bc9a497f9c4?q=80&w=1200",
         ];
 
-        let finalProducts = prodsRes;
+        let finalProducts: any = prodsRes;
         if (!finalProducts || finalProducts.length === 0) {
           finalProducts = MOCK_PRODUCTS;
         }

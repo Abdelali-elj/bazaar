@@ -5,10 +5,7 @@ const nextConfig: NextConfig = {
     // Skip type checking during build for faster deploys
     ignoreBuildErrors: true,
   },
-  eslint: {
-    // Skip ESLint during build for faster deploys
-    ignoreDuringBuilds: true,
-  },
+
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
